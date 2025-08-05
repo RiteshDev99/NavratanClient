@@ -50,7 +50,7 @@ function Header() {
                                         navigate(item.slug);
                                         setMenuOpen(false);
                                     }}
-                                    className="w-full text-left px-5 py-3 bg-gray-100 rounded-lg hover:bg-[#eb7724] hover:text-white"
+                                    className="w-full text-left px-5 py-3  rounded-lg hover:bg-[#eb7724] hover:text-white"
                                 >
                                     {item.name}
                                 </button>
