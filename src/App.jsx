@@ -1,9 +1,16 @@
+import { Footer, Header } from "./components/index.js";
+import { Outlet } from "react-router-dom";
+
 function App() {
-  return (
-    <div className="h-screen flex justify-center items-center bg-slate-600">
-      <h1 className="text-2xl text-yellow-200">Welcome</h1>
-    </div>
-  );
+    return (
+        <div className="flex flex-col min-h-screen w-full bg-sky-50">
+            <Header />
+            <main className="flex-1">
+                <Outlet />
+            </main>
+            <Footer />
+        </div>
+    );
 }
 
 export default App;
