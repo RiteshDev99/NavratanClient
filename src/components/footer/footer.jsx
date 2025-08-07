@@ -12,10 +12,6 @@ function Footer() {
             title: "Support",
             links: ["Account", "Help", "Contact Us", "Customer Support"],
         },
-        {
-            title: "Legals",
-            links: ["Terms & Conditions", "Privacy Policy", "Licensing"],
-        },
     ];
 
     return (

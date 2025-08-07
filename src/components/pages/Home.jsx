@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setMenuItems } from "../../store/feature/menuItems/menuSlice.js";
 import menuService from "../../appwrite/menuService.js";
-import {Loader, MenuCard} from "../index.js";
-import HeaderSlider from "../ui/HeaderSlider.jsx";
+import {HeaderSlider, Loader, MenuCard} from "../index.js";
 
 function Home() {
     const [loading, setLoading] = useState(true);
@@ -37,11 +36,11 @@ function Home() {
         <div className="min-h-screen w-full ">
             <HeaderSlider />
 
-            <div className="p-4">
+            <div className="">
                 {loading ? (
                     <Loader loading={loading} />
                 ) : items.length > 0 ? (
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 justify-items-center">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-1 justify-items-center">
                         {items.map((item) => (
                             <MenuCard
                                 key={item.$id}

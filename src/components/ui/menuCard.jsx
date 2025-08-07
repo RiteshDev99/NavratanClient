@@ -4,9 +4,9 @@ export default function MenuCard({ item, onClick }) {
     return (
         <div
             onClick={onClick}
-            className=" my-4 rounded-lg shadow-md overflow-hidden w-[150px] h-[150px] cursor-pointer "
+            className=" my-4 rounded-lg shadow-md overflow-hidden w-[160px] h-[160px] cursor-pointer "
         >
-            <div className="h-[110px] w-full ">
+            <div className="h-[120px] w-full ">
                 <img
                     src={item.image}
                     className="h-full w-full object-cover"
