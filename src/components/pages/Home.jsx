@@ -44,11 +44,7 @@ function Home() {
                         {items.map((item) => (
                             <MenuCard
                                 key={item.$id}
-                                item={{
-                                    name: item.name,
-                                    price: item.price,
-                                    image: menuService.getImagePreview(item.image)?.href || "",
-                                }}
+                                item={item}
                                 onClick={() => console.log("Clicked:", item.name)}
                             />
                         ))}

@@ -1,6 +1,26 @@
-import React from "react";
+import {React, useState, useEffect} from "react";
+import menuService from '../../appwrite/menuService'
 
 export default function MenuCard({ item, onClick }) {
+
+    const [imageUrl, setImageUrl] = useState(null);
+
+    useEffect(() => {
+        if (item.image) {
+            console.log('uuu', item.image)
+            menuService.getImageView(item.image)
+                .then((url)=> {
+                    setImageUrl(url);
+                    console.log(url)
+                })
+                .catch(err => console.log(err));
+        }
+
+
+    }, [item.image]);
+
+
+
     return (
         <div
             onClick={onClick}
@@ -8,9 +28,9 @@ export default function MenuCard({ item, onClick }) {
         >
             <div className="h-[120px] w-full ">
                 <img
-                    src={item.image}
+                    src={imageUrl || ""}
                     className="h-full w-full object-cover"
-                    alt={''}
+                    alt={item.name || "Menu item"}
                 />
             </div>
             <div className="flex items-center justify-between px-3 py-2">
