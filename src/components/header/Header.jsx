@@ -14,7 +14,7 @@ function Header() {
     ];
 
     return (
-        <header className="py-3 shadow bg-sky-50 w-full">
+        <header className=" shadow-md py-3 px-2 bg-sky-50 w-full fixed ">
             <Container>
                 <nav className="flex items-center justify-between">
                     <Link to="/" className="flex items-center">

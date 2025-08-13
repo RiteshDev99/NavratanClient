@@ -1,4 +1,4 @@
-import {React, useState, useEffect} from "react";
+import { useState, useEffect} from "react";
 import menuService from '../../appwrite/menuService'
 
 export default function MenuCard({ item, onClick }) {
@@ -7,7 +7,6 @@ export default function MenuCard({ item, onClick }) {
 
     useEffect(() => {
         if (item.image) {
-            console.log('uuu', item.image)
             menuService.getImageView(item.image)
                 .then((url)=> {
                     setImageUrl(url);
@@ -15,12 +14,8 @@ export default function MenuCard({ item, onClick }) {
                 })
                 .catch(err => console.log(err));
         }
-
-
     }, [item.image]);
-
-
-
+    
     return (
         <div
             onClick={onClick}
