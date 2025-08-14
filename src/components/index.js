@@ -5,6 +5,7 @@ import Logo from './ui/logo.jsx'
 import MenuCard from './ui/menuCard.jsx'
 import Loader from './ui/loader.jsx'
 import MenuFilterBar from "./MenuFilterBar.jsx";
+import ShimmerEffect from "./ui/ShimmerEffect.jsx";
 
 export {
     Header,
@@ -13,5 +14,6 @@ export {
     Logo,
     MenuCard,
     Loader,
+    ShimmerEffect,
     MenuFilterBar
 }

@@ -1,5 +1,5 @@
 import {useEffect, useMemo, useState} from "react";
-import { Loader, MenuCard } from "./index.js";
+import { MenuCard } from "./index.js";
 import { useDispatch } from "react-redux";
 import menuService from "../appwrite/menuService.js";
 import { setMenuItems } from "../store/feature/menuItems/menuSlice.js";
@@ -17,6 +17,7 @@ export default function MenuFilterBar() {
     const [activeId, setActiveId] = useState("1");
     const [loading, setLoading] = useState(true);
     const [items, setItems] = useState([]);
+    const [selectedIds, setSelectedIds] = useState([]);
 
     const dispatch = useDispatch();
     const arr = Array.from({ length: 10 });
@@ -50,6 +51,13 @@ export default function MenuFilterBar() {
         const categoryTitle = buttonItems.find(btn => btn.id === activeId)?.title;
         return items.filter(post => post.category === categoryTitle);
     }, [activeId, items]);
+
+
+    const toggleSelect = (id) => {
+        setSelectedIds((prev) =>
+            prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+        );
+    };
 
 
     return (
@@ -91,9 +99,11 @@ export default function MenuFilterBar() {
                             <MenuCard
                                 key={item.$id}
                                 item={item}
-                                onClick={() =>
-                                    console.log("Clicked:", item.name)
-                                }
+                                isSelected={selectedIds.includes(item.$id)}
+                                onClick={() => {
+                                    toggleSelect(item.$id);
+                                    console.log(item.$id);
+                                }}
                             />
                         ))}
                     </div>
