@@ -6,6 +6,8 @@ import { setMenuItems } from "../store/feature/menuItems/menuSlice.js";
 import ShimmerEffect from "./ui/ShimmerEffect.jsx";
 import { toggleItem } from "../store/feature/cart/cartSlice.js";
 import {useNavigate} from "react-router-dom";
+import {AnimatePresence, motion} from "framer-motion";
+import { ChevronRightIcon } from "@heroicons/react/24/solid";
 
 const buttonItems = [
     { id: "1", title: "All" },
@@ -111,22 +113,30 @@ export default function MenuFilterBar() {
                 )}
             </div>
 
-            {cartItems.length > 0 && (
-                <div className="fixed bottom-0 left-0 w-full rounded-t-3xl shadow-lg z-100 min-h-[70px] max-h-[250px] flex justify-center"
-                     onClick={() => navigate("/cart")}
+            <AnimatePresence>
+                {cartItems.length > 0 && (
+                    <motion.div
+                        className="fixed bottom-0 left-0 w-full rounded-t-3xl shadow-lg z-100 min-h-[70px] max-h-[250px] flex justify-center"
+                        onClick={() => navigate("/cart")}
+                        initial={{ y: 100, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        exit={{ y: 100, opacity: 0 }}
+                        transition={{ duration: 0.2, ease: "easeInOut" }}
+                    >
+                        <div className="h-[57px] bg-[#1ca671] w-[95vw] flex justify-between items-center rounded-2xl px-4 text-white">
+                            <div className="flex items-center justify-center gap-2">
+                                <p>{cartItems.length}</p>
+                                <p>Item{cartItems.length > 1 ? "s" : ""} added</p>
+                            </div>
+                            <div className='flex items-center justify-center gap-1'>
+                                <p className="cursor-pointer">View Cart</p>
+                                <ChevronRightIcon className="h-5 w-5  text-white" />
+                            </div>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
 
-                >
-                    <div className="h-[57px] bg-[#1ca671] w-[95vw] flex justify-between items-center rounded-2xl px-4 text-white">
-                        <div className="flex items-center justify-center gap-2">
-                            <p>{cartItems.length}</p>
-                            <p>Item{cartItems.length > 1 ? "s" : ""} added</p>
-                        </div>
-                        <div>
-                            <p className="cursor-pointer">View Cart</p>
-                        </div>
-                    </div>
-                </div>
-            )}
 
             <style jsx>{`
                 .scrollbar-hide {

@@ -1,4 +1,5 @@
-import Cart from "../Cart.jsx";
+import {Cart} from "../index.js";
+
 
 const CartPage = () => {
     return (

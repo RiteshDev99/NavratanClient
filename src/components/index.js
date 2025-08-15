@@ -6,6 +6,10 @@ import MenuCard from './ui/menuCard.jsx'
 import Loader from './ui/loader.jsx'
 import MenuFilterBar from "./MenuFilterBar.jsx";
 import ShimmerEffect from "./ui/ShimmerEffect.jsx";
+import Cart from "../components/Cart.jsx";
+import CardCart from "./ui/CardCart.jsx";
+import CheckOut from '../components/CheckOut.jsx'
+
 
 export {
     Header,
@@ -15,5 +19,8 @@ export {
     MenuCard,
     Loader,
     ShimmerEffect,
-    MenuFilterBar
+    MenuFilterBar,
+    Cart,
+    CardCart,
+    CheckOut
 }
