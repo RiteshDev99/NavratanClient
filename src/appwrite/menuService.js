@@ -37,6 +37,22 @@ class MenuService {
         );
     }
 
+    async sendPayment(paymentData) {
+        try {
+            const res = await this.databases.createDocument(
+                conf.appwriteDataBaseId,
+                conf.appwritePaymentsCollectionId,
+                ID.unique(),
+                paymentData
+            );
+            console.log("Payment sent:", res);
+            return res;
+        } catch (err) {
+            console.error("Error sending payment:", err);
+            throw err;
+        }
+    }
+
 }
 
 const menuService = new MenuService();

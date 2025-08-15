@@ -19,7 +19,7 @@ export default function Cart() {
 
     return (
         <div className=" min-h-screen flex flex-col">
-            <div className="flex items-center p-4  shadow">
+            <div className="flex items-center p-4  shadow ">
                 <button
                     onClick={() => navigate(-1)}
                     className="p-2 bg-[#1ca671] hover:bg-gray-300 rounded-full mr-4"
@@ -27,7 +27,7 @@ export default function Cart() {
                     <ChevronLeftIcon className="h-6 w-6  text-white" />
 
                 </button>
-                <h1 className="text-xl">Your Cart</h1>
+                <h1 className="text-xl text-center">Your Cart</h1>
             </div>
 
             <div className="flex-1 overflow-auto p-4 max-h-[80vh]">
