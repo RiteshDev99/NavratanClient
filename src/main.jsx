@@ -6,7 +6,7 @@ import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import store from "./store/store.js";
 import {Provider} from "react-redux";
 import Home from "./components/pages/Home.jsx";
-import PaymentPage from "./components/pages/PaymentPage.jsx";
+import CartPage from "./components/pages/CartPage.jsx";
 
 const router = createBrowserRouter([
     {
@@ -18,8 +18,8 @@ const router = createBrowserRouter([
                 element: <Home />,
             },
             {
-                path : "/proceed-to-payment",
-                element : <PaymentPage />
+                path : "/cart",
+                element : <CartPage />
 
             }
         ],

@@ -1,9 +1,10 @@
-import React, {useEffect, useMemo, useState} from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { MenuCard } from "./index.js";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import menuService from "../appwrite/menuService.js";
 import { setMenuItems } from "../store/feature/menuItems/menuSlice.js";
 import ShimmerEffect from "./ui/ShimmerEffect.jsx";
+import { toggleItem } from "../store/feature/cart/cartSlice.js";
 import {useNavigate} from "react-router-dom";
 
 const buttonItems = [
@@ -18,14 +19,10 @@ export default function MenuFilterBar() {
     const [activeId, setActiveId] = useState("1");
     const [loading, setLoading] = useState(true);
     const [items, setItems] = useState([]);
-    const [selectedIds, setSelectedIds] = useState([]);
-    const [openSheet , setOpenSheet] = useState(false);
     const dispatch = useDispatch();
+    const cartItems = useSelector((state) => state.cart.items);
     const arr = Array.from({ length: 10 });
-    const [selectedItem, setSelectedItem] = useState([]);
     const navigate = useNavigate();
-
-
     const fetchMenuItems = async () => {
         try {
             setLoading(true);
@@ -44,42 +41,22 @@ export default function MenuFilterBar() {
         }
     };
 
-
     useEffect(() => {
         fetchMenuItems();
     }, []);
 
-
     const filteredItems = useMemo(() => {
-        if (activeId === '1') return items;
-        const categoryTitle = buttonItems.find(btn => btn.id === activeId)?.title;
-        return items.filter(post => post.category === categoryTitle);
+        if (activeId === "1") return items;
+        const categoryTitle = buttonItems.find((btn) => btn.id === activeId)?.title;
+        return items.filter((post) => post.category === categoryTitle);
     }, [activeId, items]);
 
-
     const toggleSelect = (itemId) => {
-        const item = items.find(i => i.$id === itemId);
-
-        setSelectedIds((prev) => {
-            const isSelected = prev.includes(itemId);
-            let updatedIds;
-
-            if (isSelected) {
-                updatedIds = prev.filter(id => id !== itemId);
-                setSelectedItem(prevItems => prevItems.filter(i => i.$id !== itemId));
-            } else {
-                updatedIds = [...prev, itemId];
-                setSelectedItem(prevItems => {
-                    const exists = prevItems.some(i => i.$id === item.$id);
-                    return exists ? prevItems : [...prevItems, item];
-                });
-            }
-
-            setOpenSheet(updatedIds.length > 0);
-            return updatedIds;
-        });
+        const item = items.find((i) => i.$id === itemId);
+        if (item) {
+            dispatch(toggleItem(item));
+        }
     };
-
 
     return (
         <>
@@ -95,7 +72,7 @@ export default function MenuFilterBar() {
                         <button
                             key={item.id}
                             onClick={() => setActiveId(item.id)}
-                            className={`flex-shrink-0  px-3 sm:px-4 py-[6px] rounded-full border text-xs sm:text-sm md:text-base transition-all whitespace-nowrap scroll-snap-align-start ${
+                            className={`flex-shrink-0 px-3 sm:px-4 py-[6px] rounded-full border text-xs sm:text-sm md:text-base transition-all whitespace-nowrap scroll-snap-align-start ${
                                 activeId === item.id
                                     ? "bg-[#d9832e] text-white border-[#d9832e]"
                                     : "text-[#144554] border-gray-300 hover:bg-gray-200"
@@ -115,16 +92,13 @@ export default function MenuFilterBar() {
                         ))}
                     </div>
                 ) : filteredItems.length > 0 ? (
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 p-4 justify-items-center ">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 p-4 justify-items-center">
                         {filteredItems.map((item) => (
                             <MenuCard
                                 key={item.$id}
                                 item={item}
-                                isSelected={selectedIds.includes(item.$id)}
-                                onClick={() => {
-                                    toggleSelect(item.$id);
-                                    console.log(item.$id);
-                                }}
+                                isSelected={cartItems.some((i) => i.$id === item.$id)}
+                                onClick={() => toggleSelect(item.$id)}
                             />
                         ))}
                     </div>
@@ -136,25 +110,20 @@ export default function MenuFilterBar() {
                     </div>
                 )}
             </div>
-            {openSheet && selectedItem.length > 0 && (
-                <div className="fixed bottom-0 left-0 w-full bg-sky-100 rounded-t-3xl shadow-lg z-100 min-h-[150px] max-h-[250px] flex flex-col">
 
-                    <div className="flex-1 overflow-y-auto p-4">
-                        {selectedItem.map((item) => (
-                            <div key={item.$id} className="flex gap-3 mb-2 items-center">
-                                <p className='text-[12px] font-semibold text-gray-800 truncate max-w-[100px]'>{item.name}</p>
-                                <p className='text-[12px] font-bold text-green-600'>₹{item.price}</p>
-                            </div>
-                        ))}
-                    </div>
+            {cartItems.length > 0 && (
+                <div className="fixed bottom-0 left-0 w-full rounded-t-3xl shadow-lg z-100 min-h-[70px] max-h-[250px] flex justify-center"
+                     onClick={() => navigate("/cart")}
 
-                    <div className="p-4 border-t border-gray-300 bg-sky-100">
-                        <button
-                            onClick={() => navigate("/proceed-to-payment")}
-                            className="w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg font-semibold"
-                        >
-                            Proceed to Payment
-                        </button>
+                >
+                    <div className="h-[57px] bg-[#1ca671] w-[95vw] flex justify-between items-center rounded-2xl px-4 text-white">
+                        <div className="flex items-center justify-center gap-2">
+                            <p>{cartItems.length}</p>
+                            <p>Item{cartItems.length > 1 ? "s" : ""} added</p>
+                        </div>
+                        <div>
+                            <p className="cursor-pointer">View Cart</p>
+                        </div>
                     </div>
                 </div>
             )}
@@ -168,7 +137,6 @@ export default function MenuFilterBar() {
                     display: none;
                 }
             `}</style>
-
         </>
     );
 }
