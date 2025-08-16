@@ -53,6 +53,30 @@ class MenuService {
         }
     }
 
+    async sendOrderItem(orderData) {
+        try {
+            const order = await this.databases.createDocument(
+                conf.appwriteDataBaseId,
+                conf.appwriteOrdersCollectionId,
+                ID.unique(),
+                {
+                    name: orderData.name,                  // required
+                    totalAmount: orderData.totalAmount,    // required
+                    items: orderData.items,                // required / optional
+                    status: orderData.status || 'pending', // required
+                    datetime: orderData.datetime,          // required
+                    paymentStatus: orderData.paymentStatus,// required
+                }
+            );
+
+            return order;
+        } catch (error) {
+            console.log("Error sending order:", error);
+            throw error;
+        }
+    }
+
+
 }
 
 const menuService = new MenuService();

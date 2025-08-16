@@ -17,7 +17,7 @@ export default function MenuCard({ item, onClick, isSelected }) {
         <div
             onClick={onClick}
             className={` relative my-3 rounded-lg shadow-md overflow-hidden w-[175px] h-[175px] cursor-pointer border-2 transition-all
-                ${isSelected ? "border-[#d9832e] ring-2 ring-[#d9832e]" : "border-transparent"}`}
+                ${isSelected ? "border-[#1ca671] ring-2 ring-[#1ca671]" : "border-transparent"}`}
         >
             <div className="h-[132px] w-full relative">
                 <img
@@ -27,7 +27,7 @@ export default function MenuCard({ item, onClick, isSelected }) {
                 />
 
                 {isSelected && (
-                    <div className="absolute top-2 right-2 bg-[#d9832e] rounded-full p-1">
+                    <div className="absolute top-2 right-2 bg-[#1ca671] rounded-full p-1">
                         <CheckIcon className="w-4 h-4 text-white" />
                     </div>
                 )}

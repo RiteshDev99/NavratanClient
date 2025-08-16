@@ -76,7 +76,7 @@ export default function MenuFilterBar() {
                             onClick={() => setActiveId(item.id)}
                             className={`flex-shrink-0 px-3 sm:px-4 py-[6px] rounded-full border text-xs sm:text-sm md:text-base transition-all whitespace-nowrap scroll-snap-align-start ${
                                 activeId === item.id
-                                    ? "bg-[#d9832e] text-white border-[#d9832e]"
+                                    ? "bg-[#1ca671] text-white border-[#1ca671]"
                                     : "text-[#144554] border-gray-300 hover:bg-gray-200"
                             }`}
                         >

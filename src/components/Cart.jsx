@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import {CardCart} from "./index.js";
 
 
+
 export default function Cart() {
     const cartItems = useSelector(state => state.cart.items);
     const dispatch = useDispatch();
@@ -16,6 +17,7 @@ export default function Cart() {
         (sum, item) => sum + item.price * (item.quantity || 1),
         0
     );
+ 
 
     return (
         <div className=" min-h-screen flex flex-col">

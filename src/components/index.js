@@ -9,6 +9,7 @@ import ShimmerEffect from "./ui/ShimmerEffect.jsx";
 import Cart from "../components/Cart.jsx";
 import CardCart from "./ui/CardCart.jsx";
 import CheckOut from '../components/CheckOut.jsx'
+import PopupModal from "../components/ui/Popup.jsx";
 
 
 export {
@@ -22,5 +23,6 @@ export {
     MenuFilterBar,
     Cart,
     CardCart,
-    CheckOut
+    CheckOut,
+    PopupModal
 }
